@@ -1,0 +1,58 @@
+name: Install gamedev agent skills
+
+on:
+  push:
+    branches:
+      - chore/install-gamedev-skills
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout BlockFace
+        uses: actions/checkout@v4
+        with:
+          ref: chore/install-gamedev-skills
+          fetch-depth: 0
+
+      - name: Install all gamedev skills and router
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .agents/skills
+          mkdir -p .agents/skills
+          rm -rf /tmp/awesome-gamedev-agent-skills
+          git clone --depth 1 https://github.com/gamedev-skills/awesome-gamedev-agent-skills.git /tmp/awesome-gamedev-agent-skills
+
+          while IFS= read -r skill_file; do
+            skill_dir="$(dirname "$skill_file")"
+            skill_name="$(basename "$skill_dir")"
+            cp -R "$skill_dir" ".agents/skills/$skill_name"
+          done < <(find /tmp/awesome-gamedev-agent-skills/skills -name SKILL.md -type f | sort)
+
+          cp -R /tmp/awesome-gamedev-agent-skills/router .agents/skills/router
+
+          count="$(find .agents/skills -name SKILL.md -type f | wc -l | tr -d ' ')"
+          if [ "$count" -ne 75 ]; then
+            echo "Expected 75 skills including router, found $count"
+            exit 1
+          fi
+
+          rm -f .github/workflows/install-gamedev-skills.yml
+
+      - name: Commit installed skills
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .agents/skills .github/workflows/install-gamedev-skills.yml
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: install awesome gamedev agent skills"
+          git push origin HEAD:chore/install-gamedev-skills
