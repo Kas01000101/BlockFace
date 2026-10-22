@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#FFF8EC" />
+  <title>Block Face — Friends</title>
+  <style>
+    :root {
+      --bf-red: #e6323a;
+      --bf-cyan: #67cfe8;
+      --bf-cream: #fff8ec;
+      --bf-card: #fffdf9;
+      --bf-yellow: #ffd44d;
+      --bf-ink: #182333;
+      --bf-muted: #536072;
+      --bf-green: #75ce68;
+      --bf-border: 4px solid var(--bf-ink);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bf-cream);
+      color: var(--bf-ink);
+      font-family: "Nunito", "Arial Rounded MT Bold", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: clamp(16px, 3vw, 36px);
+      background-image:
+        radial-gradient(circle at 16% 14%, rgba(103, 207, 232, .22), transparent 28%),
+        radial-gradient(circle at 88% 82%, rgba(230, 50, 58, .14), transparent 26%),
+        radial-gradient(rgba(24, 35, 51, .08) 1px, transparent 1px);
+      background-size: auto, auto, 24px 24px;
+    }
+
+    .welcome {
+      width: min(1180px, 100%);
+      min-height: min(760px, calc(100svh - 32px));
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
+      overflow: hidden;
+      background: var(--bf-card);
+      border: var(--bf-border);
+      border-radius: clamp(24px, 3vw, 34px);
+      box-shadow: 0 10px 0 var(--bf-ink);
+    }
+
+    .welcome__copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(34px, 6vw, 84px);
+      min-width: 0;
+    }
+
+    .brand {
+      margin: 0 0 28px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: .9;
+      font-weight: 1000;
+      letter-spacing: -0.065em;
+      color: var(--bf-red);
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      display: inline-block;
+      color: var(--bf-ink);
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0 0 14px;
+      padding: 8px 14px;
+      border: 3px solid var(--bf-ink);
+      border-radius: 999px;
+      background: var(--bf-yellow);
+      box-shadow: 0 3px 0 var(--bf-ink);
+      font-size: clamp(13px, 1.6vw, 16px);
+      font-weight: 950;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 720px;
+      font-size: clamp(40px, 5.5vw, 68px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .intro {
+      max-width: 700px;
+      margin: 24px 0 34px;
+      color: var(--bf-muted);
+      font-size: clamp(18px, 2.1vw, 24px);
+      line-height: 1.45;
+      font-weight: 750;
+    }
+
+    .enter-button {
+      width: fit-content;
+      min-width: 190px;
+      min-height: 54px;
+      padding: 15px 24px;
+      border: var(--bf-border);
+      border-radius: 18px;
+      background: var(--bf-red);
+      color: #fff;
+      box-shadow: 0 6px 0 var(--bf-ink);
+      font: inherit;
+      font-size: 18px;
+      font-weight: 950;
+      cursor: pointer;
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+
+    .enter-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 var(--bf-ink);
+    }
+
+    .enter-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 3px 0 var(--bf-ink);
+    }
+
+    .enter-button:focus-visible {
+      outline: 5px solid rgba(103, 207, 232, .8);
+      outline-offset: 5px;
+    }
+
+    .welcome__scene {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(to bottom, #8edcf4 0 62%, #a8e38e 62% 100%);
+      border-left: var(--bf-border);
+    }
+
+    .sun {
+      position: absolute;
+      top: 9%;
+      right: 10%;
+      width: clamp(72px, 10vw, 118px);
+      aspect-ratio: 1;
+      border: 4px solid var(--bf-ink);
+      border-radius: 50%;
+      background: var(--bf-yellow);
+    }
+
+    .city {
+      position: absolute;
+      inset: auto 0 22% 0;
+      height: 45%;
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      padding: 0 7%;
+      opacity: .96;
+    }
+
+    .building {
+      flex: 1;
+      min-width: 34px;
+      border: 4px solid var(--bf-ink);
+      border-bottom: 0;
+      background: var(--bf-card);
+      border-radius: 12px 12px 0 0;
+    }
+
+    .building:nth-child(1) { height: 46%; }
+    .building:nth-child(2) { height: 72%; background: #ffe79a; }
+    .building:nth-child(3) { height: 58%; background: #d8f5fb; }
+    .building:nth-child(4) { height: 86%; }
+    .building:nth-child(5) { height: 64%; background: #ffc8cb; }
+
+    .characters {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: end;
+      gap: clamp(18px, 4vw, 42px);
+      padding: 0 8% clamp(44px, 8vw, 88px);
+    }
+
+    .character {
+      width: min(42%, 190px);
+      filter: drop-shadow(0 8px 0 rgba(24, 35, 51, .18));
+    }
+
+    .character--red { transform: rotate(-3deg); }
+    .character--cyan { transform: rotate(3deg) translateY(-8px); }
+
+    .scene-label {
+      position: absolute;
+      z-index: 3;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: calc(100% - 28px);
+      padding: 9px 14px;
+      border: 3px solid var(--bf-ink);
+      border-radius: 999px;
+      background: var(--bf-card);
+      box-shadow: 0 3px 0 var(--bf-ink);
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    @media (max-width: 820px) {
+      body { padding: 12px; }
+
+      .welcome {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .welcome__copy {
+        padding: 34px 26px 30px;
+      }
+
+      .welcome__scene {
+        min-height: 390px;
+        border-left: 0;
+        border-top: var(--bf-border);
+      }
+
+      .intro { margin-bottom: 26px; }
+    }
+
+    @media (max-width: 420px) {
+      .welcome {
+        border-radius: 22px;
+        box-shadow: 0 7px 0 var(--bf-ink);
+      }
+
+      .brand { font-size: 44px; }
+      h1 { font-size: 42px; }
+      .welcome__scene { min-height: 330px; }
+      .scene-label { font-size: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="welcome" aria-labelledby="welcome-title">
+    <section class="welcome__copy">
+      <p class="brand" aria-label="Block Face">BLOCK <span>FACE</span></p>
+      <p class="eyebrow">Bienvenido a Friends</p>
+      <h1 id="welcome-title">Todos quieren ser escuchados.</h1>
+      <p class="intro">
+        En Friends todos quieren ser escuchados. Tú quieres que todos te escuchen a ti.
+      </p>
+      <button class="enter-button" type="button">Entrar a Friends</button>
+    </section>
+
+    <section class="welcome__scene" aria-label="Friends, la ciudad de Block Face">
+      <div class="sun" aria-hidden="true"></div>
+
+      <div class="city" aria-hidden="true">
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+        <div class="building"></div>
+      </div>
+
+      <div class="characters" aria-hidden="true">
+        <svg class="character character--red" viewBox="0 0 180 220" role="img">
+          <path d="M34 91C34 50 58 27 91 27s55 25 55 65v55c0 33-23 50-55 50s-57-18-57-51V91Z" fill="#E6323A" stroke="#182333" stroke-width="7"/>
+          <circle cx="69" cy="91" r="8" fill="#182333"/>
+          <circle cx="111" cy="91" r="8" fill="#182333"/>
+          <path d="M72 124c12 9 27 9 38 0" fill="none" stroke="#182333" stroke-width="7" stroke-linecap="round"/>
+          <path d="M33 124 13 137M146 124l20 13M67 195l-10 18M111 195l10 18" fill="none" stroke="#182333" stroke-width="7" stroke-linecap="round"/>
+        </svg>
+
+        <svg class="character character--cyan" viewBox="0 0 180 220" role="img">
+          <path d="M34 91C34 50 58 27 91 27s55 25 55 65v55c0 33-23 50-55 50s-57-18-57-51V91Z" fill="#67CFE8" stroke="#182333" stroke-width="7"/>
+          <circle cx="69" cy="91" r="8" fill="#182333"/>
+          <circle cx="111" cy="91" r="8" fill="#182333"/>
+          <path d="M73 123c11 7 25 7 36 0" fill="none" stroke="#182333" stroke-width="7" stroke-linecap="round"/>
+          <path d="M33 124 13 137M146 124l20 13M67 195l-10 18M111 195l10 18" fill="none" stroke="#182333" stroke-width="7" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="scene-label">Friends</div>
+    </section>
+  </main>
+</body>
+</html>
